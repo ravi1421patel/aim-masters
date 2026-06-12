@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DepositController;
+use App\Http\Controllers\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,14 +46,9 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
+    Route::get('/wallet', [App\Http\Controllers\WalletController::class, 'index'])
+        ->name('wallet.index');
 });
-
-Route::get('/wallet', function () {
-    $wallet = auth()->user()->wallet; // assuming relation exists
-    $transactions = auth()->user()->walletTransactions()->latest()->get();
-
-    return view('wallet.index', compact('wallet', 'transactions'));
-})->middleware('auth')->name('wallet.index');
 /*
 |--------------------------------------------------------------------------
 | Admin Routes

@@ -18,7 +18,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-nav-link>
-
+                    <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
+                        Wallet
+                    </x-nav-link>
                     @if(Route::has('deposit.create'))
                         <x-nav-link :href="route('deposit.create')" :active="request()->routeIs('deposit.*')">
                             Deposit
