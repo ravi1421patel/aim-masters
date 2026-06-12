@@ -4,22 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+use App\Models\User;
+use App\Models\Game;
+class GameParticipant extends Model
 {
     protected $fillable = [
+        'game_id',
         'user_id',
-        'type',
-        'amount',
-        'balance_before',
-        'balance_after',
+        'entry_fee',
         'status',
-        'remarks',
-        'reference_type',
-        'reference_id',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
     }
 }

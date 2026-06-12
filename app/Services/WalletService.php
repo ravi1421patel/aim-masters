@@ -25,6 +25,8 @@ class WalletService
 
             $wallet = $user->wallet()->lockForUpdate()->first();
 
+            $balanceBefore = $wallet->balance;
+
             $wallet->balance += $amount;
 
             $wallet->save();
@@ -33,6 +35,7 @@ class WalletService
                 'user_id' => $user->id,
                 'type' => $type,
                 'amount' => $amount,
+                'balance_before' => $balanceBefore,
                 'balance_after' => $wallet->balance,
                 'remarks' => $remarks,
                 'status' => 'completed'
@@ -60,6 +63,7 @@ class WalletService
                 throw new Exception('Insufficient balance');
             }
 
+            $balanceBefore = $wallet->balance;
             $wallet->balance -= $amount;
 
             $wallet->save();

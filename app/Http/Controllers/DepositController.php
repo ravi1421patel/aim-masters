@@ -27,7 +27,16 @@ class DepositController extends Controller
         $path = $request
             ->file('screenshot')
             ->store('deposits', 'public');
+            
+        $pendingDeposit = Deposit::where('user_id', auth()->id())
+            ->where('status', 'pending')
+            ->exists();
 
+        if ($pendingDeposit) {
+            return back()->withErrors([
+                'amount' => 'You already have a pending deposit request.'
+            ]);
+        }
         Deposit::create([
             'user_id' => auth()->id(),
             'amount' => $request->amount,

@@ -4,18 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Withdraw extends Model
 {
     protected $fillable = [
         'user_id',
-        'type',
         'amount',
-        'balance_before',
-        'balance_after',
+        'upi_id',
         'status',
-        'remarks',
-        'reference_type',
-        'reference_id',
+        'admin_note'
     ];
 
     public function user()
