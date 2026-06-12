@@ -5,7 +5,15 @@
         <h2 class="text-2xl font-bold mb-6">
             Deposit Funds
         </h2>
-
+        @if ($errors->any())
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                <ul class="list-disc ml-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         @if(session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                 {{ session('success') }}
@@ -22,8 +30,7 @@
             </p>
         </div>
 
-        <form method="POST" action="{{ route('deposit.store') }}" enctype="multipart/form-data"
-            class="bg-white shadow rounded p-6">
+        <form id="depositForm" method="POST" action="{{ route('deposit.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-4">
@@ -92,5 +99,18 @@
         function setAmount(amount) {
             document.getElementById('amount').value = amount;
         }
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const form = document.getElementById('depositForm');
+            const button = document.getElementById('depositSubmitBtn');
+
+            form.addEventListener('submit', () => {
+
+                button.disabled = true;
+                button.textContent = 'Processing...';
+
+            });
+
+        });
     </script>
 </x-app-layout>

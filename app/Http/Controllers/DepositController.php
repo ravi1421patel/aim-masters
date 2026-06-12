@@ -18,12 +18,7 @@ class DepositController extends Controller
             'amount' => [
                 'required',
                 'integer',
-                'min:10',
-                function ($attribute, $value, $fail) {
-                    if ($value % 10 !== 0) {
-                        $fail('Amount must be in multiples of 10.');
-                    }
-                }
+                'min:10'
             ],
             'screenshot' => 'required|image|max:4096',
             'utr' => 'nullable|string|max:100'
