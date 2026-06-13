@@ -16,7 +16,9 @@ return new class extends Migration
 
             $table->foreignId('game_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-
+            $table->integer('seat_no')->nullable();
+            $table->unique(['game_id', 'seat_no']);
+            $table->integer('filled_seats')->default(0);
             $table->decimal('entry_fee', 10, 2);
 
             $table->enum('status', ['joined', 'lost', 'won'])

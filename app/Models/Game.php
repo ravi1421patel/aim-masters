@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\User;
 class Game extends Model
 {
     protected $fillable = [
@@ -25,5 +24,20 @@ class Game extends Model
     public function winner()
     {
         return $this->belongsTo(User::class, 'winner_id');
+    }
+
+    public function getPrizePoolAttribute()
+    {
+        return $this->participants()->count() * $this->entry_fee;
+    }
+
+    public function getCommissionAttribute()
+    {
+        return $this->prize_pool * 0.10;
+    }
+
+    public function getNetPrizeAttribute()
+    {
+        return $this->prize_pool - $this->commission;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminGameController;
 use App\Http\Controllers\Admin\AdminTransactionController;
 use App\Http\Controllers\Admin\AdminWithdrawController;
 use App\Http\Controllers\DepositController;
@@ -16,6 +17,20 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+    Route::get('/games', [AdminGameController::class, 'index'])
+        ->name('admin.games');
+
+    Route::post('/games/{game}/start', [AdminGameController::class, 'start'])
+        ->name('admin.games.start');
+
+    Route::post('/games/{game}/finish', [AdminGameController::class, 'finish'])
+        ->name('admin.games.finish');
+
+    Route::post('/games/{game}/winner', [AdminGameController::class, 'declareWinner'])
+        ->name('admin.games.winner');
+});
 Route::get('/', function () {
     return view('welcome');
 })->name('home');

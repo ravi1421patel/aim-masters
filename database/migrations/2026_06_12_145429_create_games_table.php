@@ -26,7 +26,8 @@ return new class extends Migration
 
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finished_at')->nullable();
-
+            $table->timestamp('locked_at')->nullable();
+            $table->boolean('payout_done')->default(false);
             $table->timestamps();
         });
     }
